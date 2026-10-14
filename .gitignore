@@ -1,0 +1,32 @@
+# Authorised input data are local only.
+data/*
+!data/README.md
+
+# Generated analysis outputs.
+output/
+
+# Stata artefacts and temporary files.
+*.log
+*.smcl
+*.gph
+*.stswp
+*.tmp
+
+# Operating-system and editor files.
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+*.swp
+*.swo
+
+# Keep course/instructor and source-working materials out of the repository.
+instructions.pdf
+code_takehome.pdf
+Graziosi project code.do
+*.dta
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
