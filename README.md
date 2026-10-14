@@ -51,7 +51,7 @@ Part I uses a firm panel for France and Italy. It asks for descriptive compariso
 
 The explanatory note constructs NUTS-2 import-exposure measures from pre-period employment shares and sectoral import growth; uses the analogous US import shock as an instrument; maps the shock and baseline manufacturing shares; and studies regional outcomes. It then merges French regional exposure with ESS Round 8 respondents, reports weighted OLS and IV specifications, first-stage diagnostics, and an Anderson–Rubin test, and relates exposure to a CMP-based corporatism score.
 
-No matching Part II source commands were present in `code_takehome.pdf`. A separate `Graziosi project code.do` found in the working folder was not used: it is a 2024/2025 project with different authors, samples, specifications, and outcomes. Substituting it would misrepresent the submitted analysis.
+No matching Part II source commands were present in `code_takehome.pdf`. 
 
 ## Main findings
 
@@ -122,36 +122,3 @@ output/
 All paths are relative to the repository root. The script uses fixed random seeds for the bootstrap-based Levinsohn–Petrin estimations where the source listing specified them.
 
 Stata was not installed or discoverable during repository preparation, so the script was **not executed** and the numerical results were not independently reproduced. Validation was static: every PDF page was rendered and inspected, commands were compared section by section, multiline syntax and macros were checked, relative input/output references were audited, and the source datasets were inspected without modifying them. Execution-dependent behavior of the user-written estimators remains to be verified in a licensed Stata environment.
-
-## Reconstruction notes
-
-The Stata file was reconstructed from the 28-page `code_takehome.pdf` source listing and checked section by section against the rendered PDF. The following portability-only changes were made:
-
-- removed machine- and username-specific working directories;
-- changed input and output references to repository-relative paths;
-- added output-directory creation and dependency checks;
-- retained the original estimator choices, samples, seeds, comments, and model specifications;
-- corrected the collaborator acknowledgement to use Andrea Boscolo Meneguolo’s full name;
-- documented that the available listing stops after Problem V.
-
-The source PDF contained a duplicated FDI-premium regression/export block in Problem IV(d). The reconstruction keeps one copy of the identical block; this removes duplicate output without changing the estimate or interpretation.
-
-## Publication decisions
-
-Included:
-
-- the unchanged collaborative explanatory note;
-- the reconstructed, portable Part I Stata script;
-- documentation needed to reproduce the recoverable analysis.
-
-Excluded:
-
-- assignment instructions and other instructor/course materials;
-- the original code-listing PDF, which duplicates the reconstructed script and exposes personal machine paths;
-- all datasets, shapefiles, ESS/CMP inputs, and generated intermediate data because redistribution rights were not established;
-- generated tables, graphs, and Stata graph files already represented in the explanatory note or reproducible from authorised inputs;
-- the unrelated prior-year `Graziosi project code.do`.
-
-## Rights
-
-No open-source or data licence is asserted. The repository is prepared for review and reproducibility; reuse of the report, code, or data remains subject to the rights of the collaborators, course staff, and original data providers.
