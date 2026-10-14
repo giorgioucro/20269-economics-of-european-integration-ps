@@ -4,6 +4,7 @@ data/*
 
 # Generated analysis outputs.
 output/
+outputs/
 
 # Stata artefacts and temporary files.
 *.log
@@ -19,6 +20,9 @@ desktop.ini
 ~$*
 *.swp
 *.swo
+__pycache__/
+*.py[cod]
+.venv/
 
 # Keep course/instructor and source-working materials out of the repository.
 instructions.pdf

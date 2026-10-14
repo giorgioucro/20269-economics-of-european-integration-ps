@@ -1,21 +1,55 @@
-# Economics of European Integration — Problem Set
+# Economics of European Integration — Take-Home Assignment
 
-This repository contains the final explanatory note and the recoverable analysis code for the 2025/2026 take-home assignment in **20269 – Economics of European Integration** at Bocconi University.
+This repository contains the definitive collaborative Stata workflow and the submitted explanatory note for a take-home assignment in **20269 – Economics of European Integration** at Bocconi University.
 
-The project studies firm productivity, export and FDI premia, markups, regional exposure to Chinese import competition, and related political-economy outcomes. The submitted explanatory note covers Problems I–VII. The available source-code PDF, however, contains executable Stata code only for **Part I (Problems I–V)**. This repository preserves that boundary rather than reconstructing missing Part II code from unrelated material.
+The analysis connects firm heterogeneity and internationalisation with European regional exposure to Chinese import competition and its political-economy implications. The script covers the submitted computational workflow for Problems I–VII; documented source-to-assignment discrepancies appear under Validation status.
 
-## Authors and acknowledgements
+## Contributors and acknowledgements
 
-Giorgio Ucropina acknowledges the work of his collaborators:
+The original assignment and explanatory note were produced collaboratively by Giorgio Ucropina with:
 
 - Tanjima Tasnim
 - Agnese Porro
 - Alex Vigna Lobbia
 - Andrea Boscolo Meneguolo
 
-The analytical work and explanatory note were produced collaboratively.
+No individual responsibilities are assigned here because the submitted materials describe the work collectively.
 
-## Repository contents
+## Assignment structure and methodology
+
+### Part I — firm productivity, trade, and markups
+
+- **Problem I:** Descriptive comparisons of French and Italian firms in NACE 22 (publishing and printing) and NACE 36 (furniture) in 2007.
+- **Problem II:** Cobb–Douglas value-added production functions estimated by OLS, Wooldridge (`prodest`), and Levinsohn–Petrin (`levpet`). The specifications account for the pooled country-year structure through the controls used in the original analysis.
+- **Problem III:** Theoretical comparison of revenue- and value-added production functions. This is a written question answered in the explanatory note.
+- **Problem IV:** Sector-specific 1st/99th-percentile TFP cleaning; density, skewness, and Pareto-tail analysis; and regressions estimating export, pure-exporter, and FDI productivity premia.
+- **Problem V:** Price-cost-margin and De Loecker–Warzynski markup measures, exporter and size regressions, and a productivity-on-markup specification.
+
+### Part II — regional China shock and political outcomes
+
+- **Problem VI(a):** Construction of regional shift-share China shocks from pre-sample employment weights and five-year changes in Chinese imports. The analogous change in US imports from China is constructed as an instrument. The assignment instructions ask for datasets A–C to be merged, but the definitive script explicitly omits dataset C and builds the shock from A, B, and D.
+- **Problem VI(b):** Regional averages over 1995–2007. The definitive implementation does not use assignment dataset C.
+- **Problem VI(c):** NUTS-2 maps for the average China shock and the 1988 manufacturing-employment share for Spain, France, and Italy.
+- **Problem VII(a):** Harmonisation of historical and ESS Round 8 French NUTS-2 codes, followed by a regional-shock merge.
+- **Problem VII(b):** Survey-weighted OLS for perceived effects of social benefits on equality (`sbeqsoc`), controlling for gender, age, education, and NUTS-1 fixed effects, with NUTS-2 clustered standard errors.
+- **Problem VII(c):** IV/2SLS using the US-China import shock, including the first stage, Kleibergen–Paap statistic, effect-size calculations, and an OLS/IV comparison table.
+- **Problem VII(d):** Written economic interpretation, provided in the explanatory note.
+- **Problem VII(e):** Matching nine French parties reported in the ESS to 2012 Comparative Manifesto Project party identifiers and the `per405` measure.
+- **Problem VII(f):** Survey-weighted OLS and IV estimates for `log(0.5 + per405)`.
+- **Problem VII(g):** Written discussion of political reactions to globalisation, provided in the explanatory note.
+
+## Main empirical findings
+
+The following results are reported in the explanatory note and were not independently recomputed during repository preparation:
+
+- In sector 22, estimated labour elasticities are 0.415 (OLS), 0.501 (Wooldridge), and 0.362 (LP); in sector 36 they are 0.417, 0.363, and 0.320. The report discusses simultaneity and endogenous input choice when interpreting these differences.
+- Mean WRDG TFP in French sector 22 rises from 110.72 in 2001 to 142.79 in 2007, while the corresponding Italian mean changes from 117.52 to 118.96. Changes in the estimated Pareto slopes indicate non-uniform distributional shifts.
+- The all-exporter and pure-exporter log-productivity premia are 0.0903 and 0.0865. Reported FDI comparisons are larger, ranging from 0.146 to 0.226 depending on the comparison group.
+- Mean markups are 1.68 using PCM and 1.54 using DLW. The exporter coefficient is 0.214 without firm size and 0.188 with size; the reported TFP-on-markup coefficient is 0.1907.
+- Baseline manufacturing shares broadly align with regional China-shock exposure, although industrial composition also matters.
+- For the French ESS sample, the China-shock coefficient for `sbeqsoc` is −0.796 in OLS (`p` = 0.039) and −0.781 in IV (`p` = 0.030). The corporatism-score estimates are 0.396 in OLS and 0.404 in IV. The report interprets the findings through compensation and embedded-liberalism mechanisms while noting the limited number of regional clusters.
+
+## Repository structure
 
 ```text
 .
@@ -27,131 +61,129 @@ The analytical work and explanatory note were produced collaboratively.
     └── README.md
 ```
 
-- [`code_takehome.do`](code_takehome.do) is a portable reconstruction of the code printed in `code_takehome.pdf`. It implements Problems I–V and writes generated files below `output/`.
-- [`explanatory_note.pdf`](explanatory_note.pdf) is the original explanatory note, included unchanged.
-- [`data/README.md`](data/README.md) documents the required inputs and their expected locations.
-
-## Assignment objectives
-
-The assignment links firm heterogeneity and trade to European integration, then studies how exposure to Chinese import competition varies across European regions and relates to political attitudes.
-
-Part I uses a firm panel for France and Italy. It asks for descriptive comparisons in NACE 22 (publishing and printing) and NACE 36 (furniture), production-function and TFP estimation, analysis of productivity distributions and internationalisation premia, and firm-level markup measures. Part II asks for a shift-share measure of regional Chinese import exposure, an instrument based on US imports from China, regional maps and regressions, and links between trade exposure, French ESS Round 8 responses, and Comparative Manifesto Project party positions.
-
-## Empirical methodology and analysis
-
-### Part I — recoverable from the included script
-
-1. Descriptive comparisons for French and Italian firms in 2007.
-2. Cobb–Douglas value-added production functions estimated by OLS, Wooldridge (`prodest`), and Levinsohn–Petrin (`levpet`), with country and year controls where specified in the source.
-3. A theoretical comparison of revenue- and value-added production functions.
-4. Sector-specific 1st/99th-percentile TFP cleaning, kernel densities, skewness summaries, Pareto-tail regressions, and export/FDI productivity-premium regressions.
-5. Price-cost-margin and De Loecker–Warzynski markup measures, exporter regressions, size controls, and a TFP-on-markup regression.
-
-### Part II — reported results, unavailable source commands
-
-The explanatory note constructs NUTS-2 import-exposure measures from pre-period employment shares and sectoral import growth; uses the analogous US import shock as an instrument; maps the shock and baseline manufacturing shares; and studies regional outcomes. It then merges French regional exposure with ESS Round 8 respondents, reports weighted OLS and IV specifications, first-stage diagnostics, and an Anderson–Rubin test, and relates exposure to a CMP-based corporatism score.
-
-No matching Part II source commands were present in `code_takehome.pdf`. A separate `Graziosi project code.do` found in the working folder was not used: it is a 2024/2025 project with different authors, samples, specifications, and outcomes. Substituting it would misrepresent the submitted analysis.
-
-## Main findings
-
-The following figures are reported in the explanatory note; they were not recomputed during repository preparation:
-
-- For sector 22, the labour elasticities are 0.415 (OLS), 0.501 (Wooldridge), and 0.362 (LP); for sector 36 they are 0.417, 0.363, and 0.320. The report interprets the estimator differences in light of simultaneity and input-choice bias.
-- Mean WRDG TFP in French sector 22 rises from 110.72 in 2001 to 142.79 in 2007, while the corresponding Italian mean changes from 117.52 to 118.96. Estimated Pareto slopes also change, indicating that shifts are not uniform across the distribution.
-- The reported all-exporter and pure-exporter log-productivity premia are 0.0903 and 0.0865. The FDI comparisons are larger, ranging from 0.146 to 0.226 depending on the comparison group.
-- Mean markups are 1.68 using the PCM measure and 1.54 using DLW. The exporter coefficient is 0.214 without firm size and 0.188 with size; the reported TFP-on-markup coefficient is 0.1907.
-- The regional maps show that high baseline manufacturing shares broadly align with greater China-shock exposure, while sectoral composition also matters.
-- For the French ESS sample, the China-shock coefficient for `sbeqsoc` is −0.796 in OLS (`p` = 0.039) and −0.781 in IV (`p` = 0.030). The corporatism-score estimates are 0.396 in OLS and 0.404 in IV. The report treats these as evidence consistent with compensation and embedded-liberalism mechanisms, while cautioning that inference relies on a small number of regional clusters.
+- [`code_takehome.do`](code_takehome.do) is the single authoritative, portability-adjusted Stata script for Problems I–VII.
+- [`explanatory_note.pdf`](explanatory_note.pdf) is the unchanged collaborative report.
+- [`data/README.md`](data/README.md) lists every external input and its expected path.
+- `outputs/` is created when the script runs and is intentionally ignored by Git.
 
 ## Data availability
 
-No datasets are tracked in this public-ready repository. The working folder contains course-provided, ESS/CMP-related, and geographic inputs whose redistribution permissions could not be established. It also contains generated intermediate datasets that should be recreated rather than versioned.
+No data are distributed in this repository. The course-provided firm, trade, employment, and geographic inputs have unresolved redistribution terms; ESS and Comparative Manifesto Project data must be obtained under their respective access conditions.
 
-To run Part I, obtain the authorised course copy of `EEI_TH_P1_2026.dta` and place it at:
+The full script expects these external inputs under `data/`:
 
 ```text
-data/EEI_TH_P1_2026.dta
+data/
+├── EEI_TH_P1_2026.dta
+├── Employment_Shares_Take_Home.dta
+├── Imports_China_Take_Home.dta
+├── Imports_US_China_Take_Home.dta
+├── ESS8e02_3.dta
+├── MPDataset_MPDS2025a.dta
+├── NUTS_RG_20M_2013_3035.shp
+├── NUTS_RG_20M_2013_3035.shx
+├── NUTS_RG_20M_2013_3035.dbf
+├── NUTS_RG_20M_2013_3035.prj
+└── NUTS_RG_20M_2013_3035.cpg
 ```
 
-See [`data/README.md`](data/README.md) for the additional inputs associated with the Part II results. Do not publish those files unless their licences and course redistribution terms expressly permit it.
+The first four datasets and the geographic bundle were located in the original assignment folder. `ESS8e02_3.dta` and `MPDataset_MPDS2025a.dta` were not located and must be supplied by an authorised user. See the data guide for variables, provenance, and generated intermediates.
 
-## Software requirements
+## Software and Stata packages
 
-- Stata with support for factor variables and `table ... statistic()`
-- User-written commands:
-  - `outreg2`
-  - `esttab` (from `estout`)
-  - `prodest`
-  - `levpet` and its dependencies
-  - `grc1leg`
+The final `table ... statistic()` command requires Stata 17 or later. The script also uses these user-written commands:
 
-Install the packages from trusted Stata sources before running the script. Typical discovery/installation commands are:
+- `outreg2`
+- `esttab`, `eststo`, and `estadd` from `estout`
+- `prodest`
+- `levpet` and its dependencies
+- `grc1leg`
+- `spmap`
+- `shp2dta`
+- `ivreg2`
+- `ranktest`
+
+Install packages deliberately from trusted Stata sources before running the script. Typical commands are:
 
 ```stata
 ssc install outreg2
 ssc install estout
 ssc install grc1leg
+ssc install spmap
+ssc install shp2dta
+ssc install ivreg2
+ssc install ranktest
 search prodest
 search levpet
 ```
 
-Review the search results and install `prodest`, `levpet`, and the dependencies identified by Stata. The script checks availability and stops with an informative message if a command is missing; it does not install software automatically.
+Review the `search` results and install the required `prodest` and `levpet` packages and dependencies. The do-file checks command availability but never installs packages automatically.
 
-## Running the analysis
+## Reproducing the analysis
 
 1. Clone or download this repository.
-2. Put the authorised `EEI_TH_P1_2026.dta` file in `data/`.
-3. Start Stata and set the working directory to the repository root.
-4. Run:
+2. Obtain authorised copies of the inputs documented in [`data/README.md`](data/README.md) and place them directly under `data/` with the exact filenames shown above.
+3. Start Stata and change the working directory to the repository root. The script does not assume that Stata automatically uses the do-file’s directory:
 
    ```stata
-   do code_takehome.do
+   cd "path/to/20269-economics-of-european-integration-ps"
+   do "code_takehome.do"
    ```
 
-The script creates:
+4. Generated files appear under:
 
-```text
-output/
-├── figures/
-├── intermediate/
-├── logs/
-└── tables/
-```
+   ```text
+   outputs/
+   ├── figures/
+   ├── intermediate/
+   ├── logs/
+   ├── maps/
+   └── tables/
+   ```
 
-All paths are relative to the repository root. The script uses fixed random seeds for the bootstrap-based Levinsohn–Petrin estimations where the source listing specified them.
+The script reads but never overwrites external inputs. Most analytical intermediates use Stata `tempfile` objects; shapefile conversions and merged map databases are placed under `outputs/intermediate/`.
 
-Stata was not installed or discoverable during repository preparation, so the script was **not executed** and the numerical results were not independently reproduced. Validation was static: every PDF page was rendered and inspected, commands were compared section by section, multiline syntax and macros were checked, relative input/output references were audited, and the source datasets were inspected without modifying them. Execution-dependent behavior of the user-written estimators remains to be verified in a licensed Stata environment.
+## Source-code provenance and portability changes
 
-## Reconstruction notes
+The repository script is adapted from the definitive collaborative `code_takehome.do` recovered after the initial repository version was created. It supersedes the earlier partial PDF-based reconstruction and is not derived from the unrelated Graziosi prior-year project.
 
-The Stata file was reconstructed from the 28-page `code_takehome.pdf` source listing and checked section by section against the rendered PDF. The following portability-only changes were made:
+Portability adjustments are limited to:
 
-- removed machine- and username-specific working directories;
-- changed input and output references to repository-relative paths;
-- added output-directory creation and dependency checks;
-- retained the original estimator choices, samples, seeds, comments, and model specifications;
-- corrected the collaborator acknowledgement to use Andrea Boscolo Meneguolo’s full name;
-- documented that the available listing stops after Problem V.
+- replacing all username- and machine-specific working directories with documented relative paths;
+- separating external inputs (`data/`) from generated outputs (`outputs/`);
+- using temporary files for analytical intermediates where practical;
+- adding input and package checks without automatic installation;
+- directing logs, tables, graphs, and maps to predictable subdirectories;
+- adding a concise execution header and full-name contributor acknowledgement;
+- completing the output destination for the Problem VII(c) table;
+- fully commenting three disabled multiline diagnostics/specifications whose first lines alone were commented in the definitive source, which otherwise left invalid continuation lines executable.
 
-The source PDF contained a duplicated FDI-premium regression/export block in Problem IV(d). The reconstruction keeps one copy of the identical block; this removes duplicate output without changing the estimate or interpretation.
+No sample restriction, variable definition, estimator, control set, instrument, weighting choice, clustering level, or active model specification was changed.
 
-## Publication decisions
+## Validation status
 
-Included:
+Stata was not installed or discoverable during repository preparation. The complete script was therefore not executed, and numerical reproducibility remains unverified.
 
-- the unchanged collaborative explanatory note;
-- the reconstructed, portable Part I Stata script;
-- documentation needed to reproduce the recoverable analysis.
+Static validation included:
 
-Excluded:
+- matching every computational question in Problems I–VII to the definitive script;
+- comparing the portability-adjusted script against the definitive source;
+- auditing all input, intermediate, output, and map paths;
+- checking macro lifetimes across Parts I and II;
+- checking balanced braces, `preserve`/`restore` pairs, and multiline continuations;
+- inspecting available Stata datasets and geographic companions;
+- comparing the implemented models and reported findings with the assignment instructions and explanatory note.
 
-- assignment instructions and other instructor/course materials;
-- the original code-listing PDF, which duplicates the reconstructed script and exposes personal machine paths;
-- all datasets, shapefiles, ESS/CMP inputs, and generated intermediate data because redistribution rights were not established;
-- generated tables, graphs, and Stata graph files already represented in the explanatory note or reproducible from authorised inputs;
-- the unrelated prior-year `Graziosi project code.do`.
+Execution still requires a licensed Stata installation, all documented packages, and the two external Problem VII datasets that were not found locally.
 
-## Rights
+### Known source-to-assignment discrepancies
 
-No open-source or data licence is asserted. The repository is prepared for review and reproducibility; reuse of the report, code, or data remains subject to the rights of the collaborators, course staff, and original data providers.
+- Problem VI(a) instructs students to merge datasets A–C. The definitive source instead states “dataset C not used” and never reads `EEI_TH_P6_2026.dta`. The repository preserves that implementation and does not invent a merge or downstream use for dataset C.
+- The explanatory note reports an Anderson–Rubin Wald test for Problem VII(c), but no command computing that test appears in the definitive source. The reported result remains part of the note, not a reproducible output of this do-file.
+- The explanatory note mentions a robustness check using three broader education groups for Problem VII(f); the definitive source does not contain that robustness specification.
+
+## Publication and rights
+
+Assignment instructions, the original non-portable source, datasets, shapefiles, and generated results are not tracked. Their omission avoids publishing course or third-party material with uncertain redistribution rights.
+
+No open-source or data licence is asserted. Reuse remains subject to the rights of the collaborators, course staff, and original data providers. Confirm collaborator consent before publicly distributing the jointly authored explanatory note.
